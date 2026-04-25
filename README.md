@@ -103,7 +103,7 @@ If you use this artifact in your research, please cite:
 
 ## Full Framework
 
-This repository is scoped to the CRAI 2026 paper artifact. The full FRIESA-K / CPSAINT will be released separately.
+This repository is scoped to the CRAI 2026 paper artifact. 
 
 ---
 
