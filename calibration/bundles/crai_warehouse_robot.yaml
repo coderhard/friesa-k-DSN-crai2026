@@ -1,0 +1,148 @@
+# Copyright © 2026 Stable Cyber LLC. All Rights Reserved.
+schema_version: "1.0"
+scenario_id: "crai_warehouse_robot"
+scenario_name: "CRAI 2026 warehouse robot comparative sensitivity case"
+scenario_family: "industrial_robotics"
+description: >
+  Research-only comparative case for an LLM-assisted warehouse robot stack where
+  integrity failure can propagate across CPSAINT sensor, data, compute, actuation,
+  and timing layers. The case is tuned so residual risk is driven primarily by how
+  quickly the system can contain and recover from corrupted motion plans under
+  deadline pressure.
+intended_use: "research"
+limitations: >
+  Workshop-paper placeholder only. Values are expert-judgment assumptions chosen
+  to create interpretable comparative sensitivity curves, not to represent any
+  specific warehouse, robot vendor, or safety-certified deployment.
+units: "seconds / probability / scenario-loss-units"
+sector: "manufacturing"
+criticality: "high"
+safety_relevance: true
+research_only: true
+client_signoff_required: false
+has_placeholders: true
+validation_status: "draft"
+tags:
+  - "crai_2026"
+  - "comparative_sensitivity"
+  - "robotics"
+  - "cpsaint"
+  - "integrity_failure"
+time_horizon_default: 0.75
+governance_weight_default: 0.35
+governance_weight_rationale: >
+  Governance still matters for auditability and after-action review, but this
+  comparative case is intentionally dominated by whether corrupted plans can be
+  detected, contained, and safely rolled back before physical actuation propagates
+  through the cell. The governance weight is therefore kept materially below the
+  banking case so the figure emphasizes timing pressure rather than compliance
+  traceability.
+inherent_risk_defaults:
+  frequency:
+    distribution_type: lognormal
+    mean: 2.4
+    sigma: 0.35
+    units: "integrity-loss events/scenario-window"
+    confidence: low
+    source_type: expert_judgment_placeholder
+  reachability:
+    distribution_type: beta
+    alpha: 14.0
+    beta: 4.0
+    units: dimensionless
+    confidence: low
+    source_type: expert_judgment_placeholder
+  exploitability:
+    distribution_type: beta
+    alpha: 12.0
+    beta: 5.0
+    units: dimensionless
+    confidence: low
+    source_type: expert_judgment_placeholder
+  severity:
+    distribution_type: lognormal
+    mean: 1800000
+    sigma: 0.55
+    units: "scenario-loss-units (injury + downtime + scrap)"
+    confidence: low
+    source_type: expert_judgment_placeholder
+  amplification:
+    distribution_type: lognormal
+    mean: 1.65
+    sigma: 0.30
+    units: dimensionless
+    confidence: low
+    source_type: "moderate operational propagation across robot cell, conveyor, and dispatch timing"
+rate_parameters:
+  lambda_base: 7.5
+  mu_base: 2.0
+  gamma_base: 1.6
+  rho_base: 0.9
+  kappa_base: 0.45
+  beta_p: 1.4
+  beta_d: 0.9
+  beta_c: 2.1
+  beta_r: 1.8
+  beta_g: 0.6
+  alpha_1: 3.4
+  alpha_2: 2.1
+  alpha_3: 0.75
+control_defaults:
+  prevent:
+    distribution_type: beta
+    alpha: 8.0
+    beta: 4.0
+    units: dimensionless
+    confidence: low
+    source_type: expert_judgment_placeholder
+  detect_operational:
+    distribution_type: beta
+    alpha: 11.0
+    beta: 4.0
+    units: dimensionless
+    confidence: low
+    source_type: expert_judgment_placeholder
+  contain:
+    distribution_type: beta
+    alpha: 12.0
+    beta: 3.0
+    units: dimensionless
+    confidence: low
+    source_type: expert_judgment_placeholder
+  recover:
+    distribution_type: beta
+    alpha: 9.0
+    beta: 5.0
+    units: dimensionless
+    confidence: low
+    source_type: expert_judgment_placeholder
+  detect_governance:
+    distribution_type: beta
+    alpha: 7.0
+    beta: 7.0
+    units: dimensionless
+    confidence: low
+    source_type: expert_judgment_placeholder
+provenance:
+  source: "CRAI 2026 workshop comparative case; CPSAINT warehouse robotics synthesis"
+  rationale: >
+    Parameter groups are intentionally shaped so response-side controls dominate.
+    Higher alpha_2 and alpha_3 hazard rates make delayed containment and recovery
+    expensive, while a smaller governance elasticity keeps observability burden
+    secondary. Inherent-risk distributions and control means are workshop-paper
+    placeholders based on expert judgment, not empirical site telemetry.
+  confidence: "low"
+  last_reviewed: "2026-03-29"
+  owner: "research-lead"
+approval:
+  owner: "research-lead"
+  last_reviewed: "2026-03-29"
+  next_review_due: "2026-06-29"
+  approved_by: null
+  approval_date: null
+assumptions:
+  - "Integrity failure propagates across sensors, planning compute, actuation, and dispatch timing rather than through direct safety-PLC compromise."
+  - "Independent safety interlocks reduce but do not eliminate bad picks, collisions, or line stoppage once corrupted motion planning begins."
+  - "Containment means halting or sandboxing the affected robot cell before physical propagation."
+  - "Recovery means safe rollback, operator intervention, and schedule re-synchronization after the line is stabilized."
+  - "All values are research placeholders for comparative figure generation only."

@@ -1,0 +1,147 @@
+# Copyright © 2026 Stable Cyber LLC. All Rights Reserved.
+schema_version: "1.0"
+scenario_id: "crai_banking_agent"
+scenario_name: "CRAI 2026 banking agent comparative sensitivity case"
+scenario_family: "financial_ai"
+description: >
+  Research-only comparative case for an agentic banking workflow where integrity
+  failure propagates through CPSAINT data, compute, environment, and timing layers
+  of a multi-step operational process. The case is tuned so residual risk is driven
+  primarily by observability, traceability, rollback, and governance burden rather
+  than immediate physical catastrophe.
+intended_use: "research"
+limitations: >
+  Workshop-paper placeholder only. Values are expert-judgment assumptions selected
+  to produce interpretable comparative sensitivity behavior, not to represent any
+  specific bank, product line, regulator, or production control environment.
+units: "seconds / probability / scenario-loss-units"
+sector: "financial_services"
+criticality: "high"
+safety_relevance: false
+research_only: true
+client_signoff_required: false
+has_placeholders: true
+validation_status: "draft"
+tags:
+  - "crai_2026"
+  - "comparative_sensitivity"
+  - "banking"
+  - "agentic_ai"
+  - "governance"
+time_horizon_default: 0.75
+governance_weight_default: 0.90
+governance_weight_rationale: >
+  This comparative case is designed to show a workflow where unobservable
+  compromised dwell time, traceability gaps, and rollback burden dominate more
+  than immediate catastrophe. Governance weight is therefore kept much higher than
+  the warehouse case so observability-like controls materially reshape the residual
+  risk curve for the workshop figure.
+inherent_risk_defaults:
+  frequency:
+    distribution_type: lognormal
+    mean: 3.2
+    sigma: 0.40
+    units: "integrity-loss events/scenario-window"
+    confidence: low
+    source_type: expert_judgment_placeholder
+  reachability:
+    distribution_type: beta
+    alpha: 11.0
+    beta: 6.0
+    units: dimensionless
+    confidence: low
+    source_type: expert_judgment_placeholder
+  exploitability:
+    distribution_type: beta
+    alpha: 10.0
+    beta: 8.0
+    units: dimensionless
+    confidence: low
+    source_type: expert_judgment_placeholder
+  severity:
+    distribution_type: lognormal
+    mean: 900000
+    sigma: 0.45
+    units: "scenario-loss-units (workflow loss + remediation + compliance effort)"
+    confidence: low
+    source_type: expert_judgment_placeholder
+  amplification:
+    distribution_type: lognormal
+    mean: 1.25
+    sigma: 0.20
+    units: dimensionless
+    confidence: low
+    source_type: "workflow propagation across approvals, downstream posting, and rollback queues"
+rate_parameters:
+  lambda_base: 4.8
+  mu_base: 1.4
+  gamma_base: 1.0
+  rho_base: 0.85
+  kappa_base: 2.2
+  beta_p: 1.1
+  beta_d: 0.75
+  beta_c: 0.65
+  beta_r: 0.45
+  beta_g: 1.9
+  alpha_1: 0.85
+  alpha_2: 0.35
+  alpha_3: 0.12
+control_defaults:
+  prevent:
+    distribution_type: beta
+    alpha: 7.0
+    beta: 7.0
+    units: dimensionless
+    confidence: low
+    source_type: expert_judgment_placeholder
+  detect_operational:
+    distribution_type: beta
+    alpha: 8.0
+    beta: 6.0
+    units: dimensionless
+    confidence: low
+    source_type: expert_judgment_placeholder
+  contain:
+    distribution_type: beta
+    alpha: 7.0
+    beta: 7.0
+    units: dimensionless
+    confidence: low
+    source_type: expert_judgment_placeholder
+  recover:
+    distribution_type: beta
+    alpha: 8.0
+    beta: 6.0
+    units: dimensionless
+    confidence: low
+    source_type: expert_judgment_placeholder
+  detect_governance:
+    distribution_type: beta
+    alpha: 6.0
+    beta: 8.0
+    units: dimensionless
+    confidence: low
+    source_type: expert_judgment_placeholder
+provenance:
+  source: "CRAI 2026 workshop comparative case; agentic banking workflow synthesis"
+  rationale: >
+    Parameter groups are intentionally shaped so observability and governance
+    controls dominate. Higher kappa_base, higher beta_g, and a larger governance
+    weight make compromised unobservable dwell time more consequential, while lower
+    alpha hazards keep the case away from immediate physical-catastrophe dynamics.
+    Values are expert-judgment placeholders for comparative figure generation.
+  confidence: "low"
+  last_reviewed: "2026-03-29"
+  owner: "research-lead"
+approval:
+  owner: "research-lead"
+  last_reviewed: "2026-03-29"
+  next_review_due: "2026-06-29"
+  approved_by: null
+  approval_date: null
+assumptions:
+  - "Integrity failure propagates through agentic workflow state, approvals, and exception queues rather than through physical actuation."
+  - "Operational detection exists but does not guarantee timely traceability or rollback once downstream actions have been queued."
+  - "Containment means stopping further automated workflow propagation; recovery means rollback, reconciliation, and human review."
+  - "Governance detection represents observability, decision traceability, and post-hoc explainability capacity."
+  - "All values are research placeholders for comparative figure generation only."
